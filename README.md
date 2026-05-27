@@ -23,24 +23,17 @@ pip install vllm torch transformers nltk accelerate
 
 # Scripts
 
-## Premise
-
-Evidence Head Identification are from [Expert Heads: Robust Evidence Identification For Large Language Models](https://github.com/Xuan-Van/ExpertHead)
-
 ## Our method
 
 1. Local model deployment:
-
 ```bash
 bash vllm.sh model/LLaMA-3.1-8B-Instruct
 ```
 2. Model response obtainment:
-
 ```bash
 python src/response.py --file data.json --model model/LLaMA-3.1-8B-Instruct
 ```
 3. Attention-based Attribution:
-
 ```bash
 for method in global local; do
     python src/attention.py \
@@ -51,7 +44,6 @@ for method in global local; do
 done
 ```
 4. Answer Attribution Evaluation:
-
 ```bash
 python src/eval.py --file result/LLaMA-3.1-8B-Instruct_LLaMA_global_1.0_None.json --model_path model/t5_xxl_true_nli_mixture
 python src/eval.py --file result/LLaMA-3.1-8B-Instruct_LLaMA_local_1.0_None.json --model_path model/t5_xxl_true_nli_mixture
@@ -60,7 +52,6 @@ python src/eval.py --file result/LLaMA-3.1-8B-Instruct_LLaMA_local_1.0_None.json
 ## Ablation
 
 1. Layer-wise Ablation:
-
 ```bash
 for layer in $(seq 0 31); do
     echo "[" > "${layer}.json"
@@ -85,7 +76,6 @@ for layer in $(seq 0 31); do
 done
 ```
 2. Effect of $\alpha$:
-
 ```bash
 for method in global local; do
     for alpha in 0 0.5 1.0 1.5 2.0 2.5 3.0; do
@@ -98,9 +88,7 @@ for method in global local; do
     done
 done
 ```
-
 3. Effect of Pooling Granularity:
-
 ```bash
 for method in global local; do
     for k in $(seq 0.1 0.1 1.0); do
